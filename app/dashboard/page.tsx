@@ -110,63 +110,86 @@ export default function Dashboard() {
   }
 
   return (
-    <div className="max-w-2xl mx-auto p-6">
-      <div className="flex justify-between items-center mb-6">
-        <h1 className="text-2xl font-bold">My Bookmarks</h1>
+  <div className="min-h-screen bg-gray-100 py-10">
+    <div className="max-w-2xl mx-auto bg-white shadow-xl rounded-2xl p-8">
+
+      {/* Header */}
+      <div className="flex justify-between items-center mb-8">
+        <h1 className="text-3xl font-semibold text-gray-800">
+          My Bookmarks
+        </h1>
         <button
           onClick={signOut}
-          className="bg-red-500 text-white px-4 py-2 rounded"
+          className="bg-red-500 hover:bg-red-600 transition text-white px-4 py-2 rounded-lg"
         >
           Logout
         </button>
       </div>
 
       {/* Add Bookmark */}
-      <div className="flex gap-2 mb-6">
+      <div className="flex flex-col sm:flex-row gap-3 mb-8">
         <input
-          className="border p-2 flex-1 rounded"
-          placeholder="Title"
+          className="border border-gray-300 focus:ring-2 focus:ring-black focus:outline-none p-3 flex-1 rounded-lg"
+          placeholder="Bookmark Title"
           value={title}
           onChange={(e) => setTitle(e.target.value)}
         />
         <input
-          className="border p-2 flex-1 rounded"
-          placeholder="URL"
+          className="border border-gray-300 focus:ring-2 focus:ring-black focus:outline-none p-3 flex-1 rounded-lg"
+          placeholder="https://example.com"
           value={url}
           onChange={(e) => setUrl(e.target.value)}
         />
         <button
           onClick={addBookmark}
-          className="bg-black text-white px-4 rounded"
+          disabled={!title || !url}
+          className={`px-5 py-3 rounded-lg text-white transition ${
+            !title || !url
+              ? 'bg-gray-400 cursor-not-allowed'
+              : 'bg-black hover:bg-gray-800'
+          }`}
         >
           Add
         </button>
       </div>
 
       {/* Bookmark List */}
-      <ul className="space-y-3">
-        {bookmarks.map((bookmark) => (
-          <li
-            key={bookmark.id}
-            className="flex justify-between items-center border p-3 rounded"
-          >
-            <a
-              href={bookmark.url}
-              target="_blank"
-              rel="noopener noreferrer"
-              className="text-blue-600 underline"
+      {bookmarks.length === 0 ? (
+        <div className="text-center text-gray-500 py-10">
+          No bookmarks yet. Add your first one 🚀
+        </div>
+      ) : (
+        <ul className="space-y-4">
+          {bookmarks.map((bookmark) => (
+            <li
+              key={bookmark.id}
+              className="flex justify-between items-center bg-gray-50 hover:bg-gray-100 transition p-4 rounded-xl border"
             >
-              {bookmark.title}
-            </a>
-            <button
-              onClick={() => deleteBookmark(bookmark.id)}
-              className="text-red-500"
-            >
-              Delete
-            </button>
-          </li>
-        ))}
-      </ul>
+              <div>
+                <a
+                  href={bookmark.url}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="text-lg font-medium text-blue-600 hover:underline"
+                >
+                  {bookmark.title}
+                </a>
+                <p className="text-sm text-gray-500 truncate">
+                  {bookmark.url}
+                </p>
+              </div>
+
+              <button
+                onClick={() => deleteBookmark(bookmark.id)}
+                className="text-red-500 hover:text-red-600 transition"
+              >
+                Delete
+              </button>
+            </li>
+          ))}
+        </ul>
+      )}
     </div>
-  )
+  </div>
+)
 }
