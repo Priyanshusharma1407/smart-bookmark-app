@@ -17,7 +17,6 @@ export default function Dashboard() {
   const [title, setTitle] = useState('')
   const [user, setUser] = useState<any>(null)
 
-  // 🔐 Get Logged-in User
   useEffect(() => {
     const loadUser = async () => {
       const { data } = await supabase.auth.getUser()
@@ -32,7 +31,6 @@ export default function Dashboard() {
     loadUser()
   }, [])
 
-  // 📥 Fetch Bookmarks
   const fetchBookmarks = async () => {
     const { data, error } = await supabase
       .from('bookmarks')
@@ -46,14 +44,12 @@ export default function Dashboard() {
     }
   }
 
-  // Initial fetch after user loads
   useEffect(() => {
     if (user) {
       fetchBookmarks()
     }
   }, [user])
 
-  // 🔥 Realtime Subscription (Simple + Stable)
   useEffect(() => {
     if (!user) return
 
@@ -78,7 +74,6 @@ export default function Dashboard() {
     }
   }, [user])
 
-  // ➕ Add Bookmark
   const addBookmark = async () => {
     if (!url || !title || !user) return
 
@@ -96,7 +91,6 @@ export default function Dashboard() {
     setTitle('')
   }
 
-  // ❌ Delete Bookmark
   const deleteBookmark = async (id: string) => {
     if (!id) return
 
