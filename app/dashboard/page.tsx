@@ -128,14 +128,14 @@ export default function Dashboard() {
 
       {/* Add Bookmark */}
       <div className="flex flex-col sm:flex-row gap-3 mb-8">
-        <input
-          className="border border-gray-300 focus:ring-2 focus:ring-black focus:outline-none p-3 flex-1 rounded-lg"
+        <input 
+          className="border text-black border-gray-300 focus:ring-2 focus:ring-black focus:outline-none p-3 flex-1 rounded-lg"
           placeholder="Bookmark Title"
           value={title}
           onChange={(e) => setTitle(e.target.value)}
         />
         <input
-          className="border border-gray-300 focus:ring-2 focus:ring-black focus:outline-none p-3 flex-1 rounded-lg"
+          className="border text-black border-gray-300 focus:ring-2 focus:ring-black focus:outline-none p-3 flex-1 rounded-lg"
           placeholder="https://example.com"
           value={url}
           onChange={(e) => setUrl(e.target.value)}
